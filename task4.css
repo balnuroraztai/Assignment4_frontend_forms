@@ -1,0 +1,104 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: #f5f3ff;
+    font-family: Arial, sans-serif;
+    color: #29243b;
+}
+
+.navbar {
+    background-color: #48347e;
+    padding: 15px;
+}
+
+.navbar-nav {
+    gap: 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.navbar .nav-link {
+    color: white;
+    font-weight: bold;
+}
+
+.navbar .nav-link:hover {
+    color: #ddd0ff;
+}
+
+.registration-card {
+    max-width: 750px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+}
+
+h1 {
+    text-align: center;
+    color: #48347e;
+    font-weight: bold;
+}
+
+.subtitle {
+    text-align: center;
+    color: gray;
+    margin-bottom: 30px;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #7656c6;
+    box-shadow: 0 0 0 0.2rem rgba(118, 86, 198, 0.15);
+}
+
+.form-check-input:checked {
+    background-color: #7656c6;
+    border-color: #7656c6;
+}
+
+.submit-btn {
+    background-color: #7656c6;
+    color: white;
+    margin-top: 15px;
+}
+
+.submit-btn:hover {
+    background-color: #59409e;
+    color: white;
+}
+
+.reset-btn {
+    background-color: #e9e5f5;
+    color: #48347e;
+    margin-top: 15px;
+}
+
+.reset-btn:hover {
+    background-color: #d9d0ef;
+}
+
+.feedback-text {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+@media (max-width: 576px) {
+    .registration-card {
+        padding: 20px;
+    }
+
+    .navbar-nav {
+        gap: 10px;
+    }
+}
