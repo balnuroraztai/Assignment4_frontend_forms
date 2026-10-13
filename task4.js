@@ -1,89 +1,92 @@
 
-const registrationForm = document.getElementById("registrationForm");
+const form = document.getElementById("registrationForm");
+const inputs = form.querySelectorAll("input:not([type='checkbox']):not([type='radio']), select");
+const password = document.getElementById("password");
+const confirmPassword = document.getElementById("confirmPassword");
+const genderInputs = form.querySelectorAll("input[name='gender']");
+const genderFeedback = document.getElementById("genderFeedback");
 
-if (registrationForm) {
-    const inputs = registrationForm.querySelectorAll(
-        "input[type='text'], input[type='email'], input[type='password'], select"
-    );
-
-    const password = document.getElementById("password");
-    const confirmPassword = document.getElementById("confirmPassword");
-    const genderInputs = registrationForm.querySelectorAll("input[name='gender']");
-    const genderFeedback = document.getElementById("genderFeedback");
-    const registrationSuccess = document.getElementById("registrationSuccess");
-
-    function validateRegistrationField(field) {
-        if (field === confirmPassword) {
-            if (confirmPassword.value !== password.value) {
-                confirmPassword.setCustomValidity("Passwords do not match");
-            } else {
-                confirmPassword.setCustomValidity("");
-            }
-        }
-
-        if (field.checkValidity()) {
-            field.classList.add("is-valid");
-            field.classList.remove("is-invalid");
-        } else {
-            field.classList.add("is-invalid");
-            field.classList.remove("is-valid");
-        }
+function validateInput(input) {
+    if (input.checkValidity()) {
+        input.classList.remove("is-invalid");
+        input.classList.add("is-valid");
+    } else {
+        input.classList.remove("is-valid");
+        input.classList.add("is-invalid");
     }
-
-    function validateGender() {
-        const selected = registrationForm.querySelector("input[name='gender']:checked");
-
-        if (selected) {
-            genderFeedback.textContent = "Looks good!";
-            genderFeedback.style.color = "green";
-        } else {
-            genderFeedback.textContent = "Please select your gender.";
-            genderFeedback.style.color = "red";
-        }
-    }
-
-    inputs.forEach(function(field) {
-        field.addEventListener("input", function() {
-            validateRegistrationField(field);
-
-            if (field === password) {
-                validateRegistrationField(confirmPassword);
-            }
-
-            registrationSuccess.classList.add("d-none");
-        });
-    });
-
-    genderInputs.forEach(function(field) {
-        field.addEventListener("change", function() {
-            validateGender();
-            registrationSuccess.classList.add("d-none");
-        });
-    });
-
-    registrationForm.addEventListener("submit", function(event) {
-        event.preventDefault();
-
-        inputs.forEach(function(field) {
-            validateRegistrationField(field);
-        });
-
-        validateGender();
-
-        if (registrationForm.checkValidity()) {
-            registrationSuccess.classList.remove("d-none");
-        } else {
-            registrationSuccess.classList.add("d-none");
-        }
-    });
-
-    registrationForm.addEventListener("reset", function() {
-        inputs.forEach(function(field) {
-            field.classList.remove("is-valid", "is-invalid");
-            field.setCustomValidity("");
-        });
-
-        genderFeedback.textContent = "";
-        registrationSuccess.classList.add("d-none");
-    });
 }
+
+function validatePasswordConfirmation() {
+    if (confirmPassword.value === password.value) {
+        confirmPassword.setCustomValidity("");
+    } else {
+        confirmPassword.setCustomValidity("Passwords must match.");
+    }
+
+    validateInput(confirmPassword);
+}
+
+function validateGender() {
+    const selected = form.querySelector("input[name='gender']:checked");
+
+    genderInputs.forEach(function(input) {
+        input.classList.remove("is-valid", "is-invalid");
+    });
+
+    if (selected) {
+        selected.classList.add("is-valid");
+        genderFeedback.textContent = "Looks good!";
+        genderFeedback.style.color = "green";
+    } else {
+        genderInputs.forEach(function(input) {
+            input.classList.add("is-invalid");
+        });
+
+        genderFeedback.textContent = "Please select your gender.";
+        genderFeedback.style.color = "red";
+    }
+}
+
+inputs.forEach(function(input) {
+    input.addEventListener("input", function() {
+        validateInput(input);
+
+        if (input === password || input === confirmPassword) {
+            validatePasswordConfirmation();
+        }
+    });
+
+    input.addEventListener("change", function() {
+        validateInput(input);
+    });
+});
+
+genderInputs.forEach(function(input) {
+    input.addEventListener("change", function() {
+        validateGender();
+    });
+});
+
+form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    inputs.forEach(function(input) {
+        validateInput(input);
+    });
+
+    validatePasswordConfirmation();
+    validateGender();
+});
+
+form.addEventListener("reset", function() {
+    inputs.forEach(function(input) {
+        input.classList.remove("is-valid", "is-invalid");
+        input.setCustomValidity("");
+    });
+
+    genderInputs.forEach(function(input) {
+        input.classList.remove("is-valid", "is-invalid");
+    });
+
+    genderFeedback.textContent = "";
+});

@@ -10,30 +10,26 @@ body {
     color: #29243b;
 }
 
-.navbar {
+nav {
     background-color: #48347e;
-    padding: 15px;
+    padding: 20px;
+    text-align: center;
 }
 
-.navbar-nav {
-    gap: 20px;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.navbar .nav-link {
+nav a {
     color: white;
+    text-decoration: none;
+    margin: 0 15px;
     font-weight: bold;
 }
 
-.navbar .nav-link:hover {
+nav a:hover {
     color: #ddd0ff;
 }
 
 .registration-card {
     max-width: 750px;
-    margin: 0 auto;
+    margin: 70px auto;
     background-color: white;
     padding: 35px;
     border-radius: 15px;
@@ -70,7 +66,6 @@ h1 {
 .submit-btn {
     background-color: #7656c6;
     color: white;
-    margin-top: 15px;
 }
 
 .submit-btn:hover {
@@ -81,7 +76,6 @@ h1 {
 .reset-btn {
     background-color: #e9e5f5;
     color: #48347e;
-    margin-top: 15px;
 }
 
 .reset-btn:hover {
@@ -95,10 +89,7 @@ h1 {
 
 @media (max-width: 576px) {
     .registration-card {
+        margin: 30px auto;
         padding: 20px;
-    }
-
-    .navbar-nav {
-        gap: 10px;
     }
 }
